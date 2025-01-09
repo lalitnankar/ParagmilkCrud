@@ -30,11 +30,11 @@ public class SubscriptionController {
         subscriptionResponse.setEndDate(subscription.getEndDate());
         subscriptionResponse.setQuantity(subscription.getQuantity());
         subscriptionResponse.setProductName(subscription.getProductName());
-        subscriptionResponse.setMessage("data insert sucessfully");
+        subscriptionResponse.setMessage("data insert successfully");
 
         return new ResponseEntity<SubscriptionResponse>(subscriptionResponse, HttpStatus.CREATED);
     }
-  @PostMapping("/update")
+  @PostMapping("/update/{id}")
   public ResponseEntity<SubscriptionResponse> updateSubscription(@RequestBody SubscriptionRequest subscriptionRequest,@PathVariable int subscriptionId){
         Subscription updateSub = subscriptionService.updateSubscription(subscriptionRequest.getQuantity(),subscriptionRequest.getFrequency(), subscriptionId);
       SubscriptionResponse subscriptionResponse = new SubscriptionResponse();
@@ -44,7 +44,7 @@ public class SubscriptionController {
       return new ResponseEntity<SubscriptionResponse>(subscriptionResponse, HttpStatus.CREATED);
 
   }
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<SubscriptionResponse> deleteSubscription(@RequestBody SubscriptionRequest subscriptionRequest,@PathVariable int subscriptionId){
         Subscription updateSub = subscriptionService.deleteSubscription(subscriptionId);
         SubscriptionResponse subscriptionResponse = new SubscriptionResponse();
@@ -53,7 +53,7 @@ public class SubscriptionController {
         return new ResponseEntity<SubscriptionResponse>(subscriptionResponse, HttpStatus.CREATED);
 
     }
-    @GetMapping("/view")
+    @GetMapping("/view/{id}")
     public List<Subscription>getAllSub(@RequestBody SubscriptionRequest subscriptionRequest,@PathVariable int customerId){
         List<Subscription>viewAll =subscriptionService.viewSubscription(customerId);
         if(viewAll!= null)
